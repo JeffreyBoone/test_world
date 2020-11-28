@@ -38,6 +38,37 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    final AlertDialog dialog = AlertDialog(
+      title: Text('Title'),
+      contentPadding: EdgeInsets.zero,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (int i = 1; i <= 3; i++)
+            ListTile(
+              title: Text(
+                'option $i',
+              ),
+              leading: Radio(
+                value: i,
+                groupValue: 1,
+                onChanged: (_) {},
+              ),
+            ),
+        ],
+      ),
+      actions: [
+        FlatButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('ACTION 1'),
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('ACTION 2'),
+        ),
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -53,8 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton:
-          FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          showDialog<void>(context: context, builder: (context) => dialog);
+        },
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: CardWidget(),
     );
